@@ -1,3 +1,4 @@
+import math
 import sys
 import pygame
 import random
@@ -38,6 +39,11 @@ class Frontier:
             self.frontier.remove(node)
             return node
 
+    def euclidean_distance(self, point1, point2):
+        x1, y1 = point1
+        x2, y2 = point2
+        return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
+
     ####################################################################################################################
     #
     # TASK:
@@ -70,10 +76,11 @@ class Frontier:
 
         # heuristic search
         if algorithm == "HS":
-            # TODO: implement heuristic search
-            # Note that you can access the goal state like this:
-            # self.goal
-            return
+            # Implement heuristic search by selecting the node with the smallest Euclidean distance to the goal state.
+            closest_node = min(
+                self.frontier, key=lambda node: self.euclidean_distance(node.state, self.goal))
+            return closest_node
+
 
 
 class Maze:
