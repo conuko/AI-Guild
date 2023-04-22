@@ -35,7 +35,12 @@ class Frontier:
             raise Exception("empty frontier")
         else:
             node = self.select_node()
-            self.frontier.remove(node)
+            if sys.argv[2] == "DFS":
+                # Remove the last node in the frontier (LIFO)
+                self.frontier = self.frontier[:-1]
+            else:
+                # Remove the selected node in the frontier
+                self.frontier.remove(node)
             return node
 
     ####################################################################################################################
@@ -60,8 +65,8 @@ class Frontier:
 
         # depth-first search
         if algorithm == "DFS":
-            # TODO: implement depth-first search.
-            return
+            # Implement depth-first search by removing the last node in the frontier (LIFO).
+            return self.frontier[-1]
 
         # breadth-first search
         if algorithm == "BFS":

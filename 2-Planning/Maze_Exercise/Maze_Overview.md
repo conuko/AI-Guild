@@ -20,7 +20,7 @@ In the attached zip file, you will find a python program "maze.py" and five diff
 The program expects two input parameters. The first one is the file that contains the maze. The second one is the search algorithm to use. The file can be any file that is in the same folder. For example, "maze1.txt". The search algorithm ca be "RS" for random search, "BFS" for breadth-first search, "DFS" for depth-first search and "HS" for heuristic search.
 For example, if you want to execute maze 3 with heuristic search you execute the following line:
 
-- python maze3.txt HS
+- python maze.py maze3.txt HS
   Once you have started the program you can click on “Explore” to execute one step in the search process.
 
 ## Your task is twofold:
