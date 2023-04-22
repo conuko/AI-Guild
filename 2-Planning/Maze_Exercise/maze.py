@@ -35,16 +35,7 @@ class Frontier:
             raise Exception("empty frontier")
         else:
             node = self.select_node()
-            if sys.argv[2] == "DFS":
-                # Remove the last node in the frontier (LIFO)
-                self.frontier = self.frontier[:-1]
-            else:
-                if sys.argv[2] == "BFS":
-                    # Remove the first node in the frontier (FIFO)
-                    self.frontier = self.frontier[1:]
-                else:
-                    # Remove the selected node in the frontier
-                    self.frontier.remove(node)
+            self.frontier.remove(node)
             return node
 
     ####################################################################################################################
