@@ -16,6 +16,7 @@ class Frontier:
     Data structure that stores nodes.
     Provides functionality to select and remove nodes according to a search algorithm.
     """
+
     def __init__(self, goal):
         self.frontier = []
         self.goal = goal
@@ -37,16 +38,14 @@ class Frontier:
             self.frontier.remove(node)
             return node
 
-
-
     ####################################################################################################################
     #
     # TASK:
-    # 
-    # The following method selects which node from the frontier to search next. 
+    #
+    # The following method selects which node from the frontier to search next.
     # Interestingly, the selection of the next node is all you need to do to completely change the behaviour of the search algorithm.
     # Your task is to implement depth-first search, bredth first search and heuristic search.
-    # as an example we've already implemented random search. 
+    # as an example we've already implemented random search.
     #
     # Tip: for heuristic search we recommend selcting the node that is closest to the goal state.
     ####################################################################################################################
@@ -56,19 +55,19 @@ class Frontier:
 
         # random search
         if algorithm == "RS":
-            random_index = random.randrange(0,len(self.frontier))
+            random_index = random.randrange(0, len(self.frontier))
             return self.frontier[random_index]
 
         # depth-first search
         if algorithm == "DFS":
             # TODO: implement depth-first search.
-            return 
-        
+            return
+
         # breadth-first search
         if algorithm == "BFS":
             # TODO: implement breadth-first search
             return
-        
+
         # heuristic search
         if algorithm == "HS":
             # TODO: implement heuristic search
@@ -82,6 +81,7 @@ class Maze:
     Representation of a given maze.
     Allows for implementation of different planning algorithms to find a path from start to goal.
     """
+
     def __init__(self, filename):
 
         # Read file and set height and width of maze
@@ -197,7 +197,8 @@ BFS (Breadth-first search), or HS (Heuristic search)."""
     tile_size = 40
     tile_origin = (tile_size, tile_size)
 
-    size = width, height = (lab_width + 2) * tile_size, (lab_height + 4) * tile_size
+    size = width, height = (lab_width + 2) * \
+        tile_size, (lab_height + 4) * tile_size
 
     # Colors
     black = (0, 0, 0)
@@ -240,13 +241,15 @@ BFS (Breadth-first search), or HS (Heuristic search)."""
                     screen.fill(white, rect)
 
         if m.solution:
-            print(f"Your algorithm explored {len(m.explored)} nodes (including start and goal).")
+            print(
+                f"Your algorithm explored {len(m.explored)} nodes (including start and goal).")
 
         pygame.display.update()
 
     screen.fill(black)
     draw_current_maze()
-    explore_button = pygame.Rect(width/2 - 60, tile_origin[1] + (lab_height + 1) * tile_size, 120, 40)
+    explore_button = pygame.Rect(
+        width/2 - 60, tile_origin[1] + (lab_height + 1) * tile_size, 120, 40)
 
     small_text = pygame.font.Font("freesansbold.ttf", 30)
     text_surface = small_text.render("Explore", True, white)
