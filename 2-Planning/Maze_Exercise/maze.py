@@ -39,8 +39,12 @@ class Frontier:
                 # Remove the last node in the frontier (LIFO)
                 self.frontier = self.frontier[:-1]
             else:
-                # Remove the selected node in the frontier
-                self.frontier.remove(node)
+                if sys.argv[2] == "BFS":
+                    # Remove the first node in the frontier (FIFO)
+                    self.frontier = self.frontier[1:]
+                else:
+                    # Remove the selected node in the frontier
+                    self.frontier.remove(node)
             return node
 
     ####################################################################################################################
@@ -70,8 +74,8 @@ class Frontier:
 
         # breadth-first search
         if algorithm == "BFS":
-            # TODO: implement breadth-first search
-            return
+            # Implement breadth-first search by removing the first node in the frontier (FIFO).
+            return self.frontier[0]
 
         # heuristic search
         if algorithm == "HS":
