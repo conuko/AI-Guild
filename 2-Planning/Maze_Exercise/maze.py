@@ -6,10 +6,11 @@ import random
 
 class Node:
 
-    def __init__(self, state, parent, action):
+    def __init__(self, state, parent, action, cost):
         self.state = state
         self.parent = parent
         self.action = action
+        self.cost = cost
 
 
 class Frontier:
@@ -81,6 +82,12 @@ class Frontier:
                 self.frontier, key=lambda node: self.euclidean_distance(node.state, self.goal))
             return closest_node
 
+        # heuristic search with A* Search Algorithm
+        if algorithm == "A":
+            # Implement A* Search using the Euclidean distance heuristic.
+            best_node = min(self.frontier, key=lambda node: node.cost +
+                            self.euclidean_distance(node.state, self.goal))
+            return best_node
 
 
 class Maze:
@@ -134,7 +141,8 @@ class Maze:
         self.explored = set()
 
         # Initialize frontier with starting node
-        self.starting_node = Node(state=self.start, parent=None, action=None)
+        self.starting_node = Node(
+            state=self.start, parent=None, action=None, cost=0)
         self.frontier = Frontier(goal=self.goal)
         self.frontier.add(self.starting_node)
 
@@ -184,7 +192,8 @@ class Maze:
         # Add neighbors to frontier
         for action, state in self.neighbors(node.state):
             if not self.frontier.contains_state(state) and state not in self.explored:
-                child = Node(state=state, parent=node, action=action)
+                child = Node(state=state, parent=node,
+                             action=action, cost=node.cost + 1)
                 self.frontier.add(child)
 
 
