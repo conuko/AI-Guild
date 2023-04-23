@@ -45,6 +45,11 @@ class Frontier:
         x2, y2 = point2
         return math.sqrt((x1 - x2) ** 2 + (y1 - y2) ** 2)
 
+    def manhattan_distance(self, point1, point2):
+        x1, y1 = point1
+        x2, y2 = point2
+        return abs(x1 - x2) + abs(y1 - y2)
+
     ####################################################################################################################
     #
     # TASK:
@@ -75,18 +80,18 @@ class Frontier:
             # Implement breadth-first search by removing the first node in the frontier (FIFO).
             return self.frontier[0]
 
-        # heuristic search
+        # heuristic search (Greedy Heuristic Search)
         if algorithm == "HS":
-            # Implement heuristic search by selecting the node with the smallest Euclidean distance to the goal state.
+            # Implement heuristic search by selecting the node with the smallest Manhattan distance to the goal state.
             closest_node = min(
-                self.frontier, key=lambda node: self.euclidean_distance(node.state, self.goal))
+                self.frontier, key=lambda node: self.manhattan_distance(node.state, self.goal))
             return closest_node
 
         # heuristic search with A* Search Algorithm
         if algorithm == "A":
-            # Implement A* Search using the Euclidean distance heuristic.
+            # Implement A* Search using the Manhattan distance heuristic.
             best_node = min(self.frontier, key=lambda node: node.cost +
-                            self.euclidean_distance(node.state, self.goal))
+                            self.manhattan_distance(node.state, self.goal))
             return best_node
 
 
