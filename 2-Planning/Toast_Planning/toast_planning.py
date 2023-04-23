@@ -1,3 +1,5 @@
+from collections import deque
+
 #############################################
 # Here's the set of actions. They have the following meaning:
 # - plug_in_toaster will connect the toaster to the socket, if it isn't already connected
@@ -110,7 +112,27 @@ def plan(start_state):
 
     # this is an example output that will fulfill the first test, but no others.
     # Substitute this by your planning result
-    return ["plug_in_toaster", "put_in_bread", "switch_on_toaster", "wait", "take_out_bread"]
+    # return ["plug_in_toaster", "put_in_bread", "switch_on_toaster", "wait", "take_out_bread"]
+
+    # Create a queue and initialize it with the start state and an empty list of actions
+    queue = deque([(start_state, [])])
+
+    # While the queue is not empty, pop the first element from the queue
+    while queue:
+        current_state, current_actions = queue.popleft()
+
+        # Check if the current state fulfills the goal, if yes return the actions
+        if goal(current_state):
+            return current_actions
+
+        # If the current state does not fulfill the goal, generate all possible actions and add them to the queue
+        for action in actions:
+            next_state = state_transition(current_state, action)
+            next_actions = current_actions + [action]
+            queue.append((next_state, next_actions))
+
+    # If the queue is empty and no goal state was found, return an empty list
+    return []
 
 
 # this is a test function. It tests your plan function
