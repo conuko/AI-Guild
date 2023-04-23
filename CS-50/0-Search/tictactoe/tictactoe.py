@@ -155,11 +155,13 @@ def minimax(board):
     if terminal(board):
         return None
 
+    # Define the max_value and min_value functions
     def max_value(board):
         if terminal(board):
             return utility(board)
-
+        # Initialize the value to -infinity
         value = -math.inf
+        # Iterate through the possible actions and update the value to the maximum value returned by the min_value function
         for action in actions(board):
             value = max(value, min_value(result(board, action)))
         return value
@@ -169,6 +171,7 @@ def minimax(board):
             return utility(board)
 
         value = math.inf
+        # Iterate through the possible actions and update the value to the minimum value returned by the max_value function
         for action in actions(board):
             value = min(value, max_value(result(board, action)))
         return value
@@ -177,9 +180,12 @@ def minimax(board):
     current_player = player(board)
 
     # Determine the optimal action for the current player
+
+    # If the current player is X, the optimal action is the action that returns the maximum value (max player)
     if current_player == X:
         optimal_action = max(
             actions(board), key=lambda action: min_value(result(board, action)))
+    # If the current player is O, the optimal action is the action that returns the minimum value (min player)
     else:
         optimal_action = min(
             actions(board), key=lambda action: max_value(result(board, action)))
