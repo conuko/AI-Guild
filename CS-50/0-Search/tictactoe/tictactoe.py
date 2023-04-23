@@ -45,7 +45,26 @@ def actions(board):
     """
     Returns set of all possible actions (i, j) available on the board.
     """
-    raise NotImplementedError
+
+    # Create a set of all possible actions
+    possible_actions = set()
+
+    # If the game is already over, return an empty set
+    if terminal(board):
+        return possible_actions
+
+    # Iterate through the board
+    for i in range(len(board)):
+        print(board)
+        print(i)
+        for j in range(len(board[i])):
+            print(board[i])
+            print(j)
+            # If the cell is empty, add the correcsponding (i, j) tuple to the set of possible actions
+            if board[i][j] == EMPTY:
+                possible_actions.add((i, j))
+
+    return possible_actions
 
 
 def result(board, action):
