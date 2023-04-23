@@ -120,7 +120,18 @@ def terminal(board):
     """
     Returns True if game is over, False otherwise.
     """
-    raise NotImplementedError
+    # If the game is over, either because someone has won the game or because all cells have been filled without anyone winning, the function should return True.
+    if winner(board) != None:
+        return True
+
+    # If the game is still in progress, the function should return False.
+    for row in board:
+        for cell in row:
+            if cell == EMPTY:
+                return False
+
+    # If the board is filled and there is no winner, the game is over
+    return True
 
 
 def utility(board):
