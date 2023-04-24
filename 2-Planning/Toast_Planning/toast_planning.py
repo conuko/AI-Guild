@@ -1,4 +1,5 @@
 from collections import deque
+import heapq
 
 #############################################
 # Here's the set of actions. They have the following meaning:
@@ -107,7 +108,7 @@ def state_transition(state, action):
 ###################################################
 
 
-def plan(start_state):
+# def plan(start_state):
     # TODO: implement me!
 
     # this is an example output that will fulfill the first test, but no others.
@@ -133,6 +134,46 @@ def plan(start_state):
 
     # If the queue is empty and no goal state was found, return an empty list
     return []
+
+
+def heuristic(state):
+    # The heuristic function estimates the remaining time to reach the goal state.
+    # Here, we make a simple estimate by assuming that we need at least 2 steps for each action.
+    return 2 * (state["bread_state"] != "toasted") + 2 * (state["bread_location"] != "plate")
+
+
+def plan(start_state):
+    open_set = [(heuristic(start_state) +
+                 start_state["time"], 0, start_state, [])]
+    visited = set()
+    counter = 1
+
+    while open_set:
+        _, _, current_state, current_actions = heapq.heappop(open_set)
+        state_key = (current_state["toaster_has_power"], current_state["toaster_is_on"],
+                     current_state["bread_location"], current_state["bread_state"])
+
+        if state_key in visited:
+            continue
+
+        visited.add(state_key)
+
+        if goal(current_state):
+            return current_actions
+
+        for action in actions:
+            next_state = state_transition(current_state, action)
+            next_actions = current_actions + [action]
+            next_state_key = (next_state["toaster_has_power"], next_state["toaster_is_on"],
+                              next_state["bread_location"], next_state["bread_state"])
+
+            if next_state_key not in visited:
+                priority = next_state["time"] + heuristic(next_state)
+                heapq.heappush(open_set, (priority, counter,
+                               next_state, next_actions))
+                counter += 1
+
+    return []  # No solution found
 
 
 # this is a test function. It tests your plan function
