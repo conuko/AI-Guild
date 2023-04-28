@@ -108,34 +108,6 @@ def state_transition(state, action):
 ###################################################
 
 
-# def plan(start_state):
-    # TODO: implement me!
-
-    # this is an example output that will fulfill the first test, but no others.
-    # Substitute this by your planning result
-    # return ["plug_in_toaster", "put_in_bread", "switch_on_toaster", "wait", "take_out_bread"]
-
-    # Create a queue and initialize it with the start state and an empty list of actions
-    queue = deque([(start_state, [])])
-
-    # While the queue is not empty, pop the first element from the queue
-    while queue:
-        current_state, current_actions = queue.popleft()
-
-        # Check if the current state fulfills the goal, if yes return the actions
-        if goal(current_state):
-            return current_actions
-
-        # If the current state does not fulfill the goal, generate all possible actions and add them to the queue
-        for action in actions:
-            next_state = state_transition(current_state, action)
-            next_actions = current_actions + [action]
-            queue.append((next_state, next_actions))
-
-    # If the queue is empty and no goal state was found, return an empty list
-    return []
-
-
 def heuristic(state):
     # The heuristic function estimates the remaining time to reach the goal state.
     # Here, we make a simple estimate by assuming that we need at least 2 steps for each action.
